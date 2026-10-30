@@ -1,65 +1,222 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jamarcus Stuart | Home Server</title>
-    <style>
-        body {
-            background: #10141c;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        h1 {
-            font-size: 42px;
-        }
-
-        p {
-            color: #9ca3af;
-        }
-
-        .card {
-            background: #1c2432;
-            padding: 25px;
-            margin: 15px auto;
-            max-width: 350px;
-            border-radius: 15px;
-        }
-
-        a {
-            color: #60a5fa;
-            text-decoration: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090d18">
+<title>256 Home Lab</title>
+<style>
+:root {
+  --bg:#090d18; --panel:rgba(20,29,46,.78); --panel2:rgba(27,39,60,.72);
+  --line:rgba(180,205,255,.13); --text:#eef4ff; --muted:#93a2bb;
+  --cyan:#70d8ff; --blue:#7297ff; --green:#61e6b0; --amber:#ffc979;
+  --red:#ff7788; --radius:17px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ background:radial-gradient(ellipse at 15% 0%,rgba(65,94,160,.22),transparent 38%),radial-gradient(ellipse at 90% 20%,rgba(40,119,148,.14),transparent 34%),linear-gradient(145deg,#080c16,#101a2a 55%,#090e19);background-attachment:fixed}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.shell{max-width:1500px;margin:auto;padding:24px 28px 48px;position:relative}
+.topbar{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:11px;min-width:205px}
+.brand-mark{width:38px;height:38px;border:1px solid rgba(112,216,255,.4);border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(112,216,255,.2),rgba(114,151,255,.08));color:var(--cyan);font-weight:800;font-size:17px;box-shadow:0 0 24px rgba(112,216,255,.1)}
+.brand strong{display:block;letter-spacing:.13em;font-size:12px}
+.brand small{color:var(--muted);font-size:10px;letter-spacing:.12em}
+.quick-stats{display:flex;gap:20px;flex:1;align-items:center;overflow:auto}
+.quick{white-space:nowrap;color:var(--muted);font-size:11px}
+.quick b{color:var(--text);font-weight:650;margin-left:5px}
+.quick .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:7px;box-shadow:0 0 9px var(--green)}
+.search{width:min(330px,30vw);position:relative}
+.search input{width:100%;background:rgba(8,13,24,.7);border:1px solid var(--line);border-radius:11px;padding:11px 38px 11px 14px;color:var(--text);outline:none}
+.search input:focus{border-color:rgba(112,216,255,.55);box-shadow:0 0 0 3px rgba(112,216,255,.08)}
+.search span{position:absolute;right:13px;top:9px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:205px minmax(0,1fr);gap:22px}
+.sidebar{align-self:start;position:sticky;top:18px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(13,20,34,.72);padding:13px}
+.side-label{font-size:9px;letter-spacing:.17em;color:#71819d;padding:10px 11px 8px}
+.nav{display:flex;align-items:center;gap:11px;padding:11px;border-radius:10px;color:var(--muted);font-size:12px;margin:3px 0;cursor:pointer;border:0;background:none;width:100%;text-align:left}
+.nav:hover,.nav.active{background:rgba(112,216,255,.1);color:var(--text)}
+.nav.active{box-shadow:inset 2px 0 var(--cyan)}
+.nav .ico{width:18px;text-align:center;font-size:15px}
+.sidebar-foot{border-top:1px solid var(--line);margin-top:15px;padding:14px 10px 5px;color:var(--muted);font-size:10px}
+main{min-width:0}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;margin:2px 0 18px;gap:20px}
+.eyebrow{color:var(--cyan);font-size:9px;letter-spacing:.2em;font-weight:700}
+h1{font-size:clamp(25px,3vw,37px);letter-spacing:-.045em;margin:5px 0 3px;font-weight:650}
+.subtitle{color:var(--muted);font-size:12px}
+.hero-right{text-align:right;color:var(--muted);font-size:11px}
+.hero-right strong{display:block;color:var(--text);font-size:13px;font-weight:600}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:25px 2px 11px}
+.section-title h2{font-size:12px;text-transform:uppercase;letter-spacing:.13em;margin:0;color:#c8d5e9;font-weight:650}
+.section-title span{font-size:10px;color:var(--muted)}
+.grid{display:grid;gap:12px}
+.system-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:linear-gradient(145deg,rgba(31,44,67,.78),rgba(14,22,37,.82));border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 12px 34px rgba(0,0,0,.16);backdrop-filter:blur(15px);min-width:0}
+.metric-card{padding:15px 16px 13px;min-height:137px;position:relative;overflow:hidden}
+.card-head{display:flex;justify-content:space-between;align-items:center;color:#dce8fa;font-size:11px}
+.tag{font-size:9px;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:3px 7px}
+.metric-value{font-size:24px;letter-spacing:-.04em;font-weight:650;margin-top:18px}
+.metric-value em{font-style:normal;font-size:11px;color:var(--muted);font-weight:450;letter-spacing:0}
+.metric-note{color:var(--muted);font-size:10px;margin-top:2px}
+.spark{position:absolute;right:0;bottom:0;width:55%;height:48px;opacity:.75}
+.spark path{fill:none;stroke:var(--cyan);stroke-width:1.4}
+.spark .area{fill:url(#fade);stroke:none}
+.server-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.server-card{padding:15px 17px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.server-info{display:flex;align-items:center;gap:12px;min-width:0}
+.server-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(112,216,255,.1);font-size:18px}
+.server-name{font-size:12px;font-weight:650}
+.server-ip{font-size:10px;color:var(--muted);margin-top:3px}
+.status{font-size:9px;color:var(--amber);white-space:nowrap}
+.status:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-right:6px}
+.service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.service-card{padding:14px 16px;display:flex;align-items:center;gap:12px;min-height:94px;transition:transform .18s,border-color .18s,background .18s}
+.service-card:hover{transform:translateY(-2px);border-color:rgba(112,216,255,.38);background:linear-gradient(145deg,rgba(38,57,84,.9),rgba(15,24,40,.9))}
+.service-icon{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.07);font-size:18px;flex:none}
+.service-copy{min-width:0;flex:1}
+.service-name{font-size:12px;font-weight:650}
+.service-desc{font-size:10px;color:var(--muted);margin-top:3px}
+.service-state{font-size:9px;color:var(--amber);white-space:nowrap}
+.service-state:before{content:"";display:inline-block;width:6px;height:6px;background:var(--amber);border-radius:50%;margin-right:6px}
+.service-arrow{color:#8293ae;font-size:17px}
+.data-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.data-card{padding:15px}
+.data-card h3{font-size:11px;margin:0 0 5px}
+.data-card p{font-size:10px;color:var(--muted);margin:0}
+.data-number{font-size:23px;font-weight:650;margin:13px 0 2px}
+.bar{height:5px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:9px}
+.placeholder{color:var(--muted);font-size:10px;margin-top:9px}
+.page{display:none}.page.active{display:block}
+.note{margin-top:19px;padding:12px 14px;border:1px dashed rgba(255,201,121,.24);border-radius:12px;color:var(--muted);font-size:10px;background:rgba(255,201,121,.035)}
+.note b{color:#f4d19c}
+.footer{display:flex;justify-content:space-between;color:#66758e;font-size:9px;margin:25px 3px 0;gap:12px}
+.empty{padding:24px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{position:static;display:flex;gap:4px;overflow:auto;padding:7px}.side-label,.sidebar-foot{display:none}.nav{white-space:nowrap;justify-content:center;padding:10px 13px}.system-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar{flex-wrap:wrap}.brand{min-width:auto}.quick-stats{order:3;flex-basis:100%}.search{margin-left:auto}}
+@media(max-width:600px){.shell{padding:15px 12px 30px}.system-grid,.server-grid,.service-grid,.data-grid{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}.hero-right{text-align:left}.metric-card{min-height:125px}.quick-stats{gap:14px}.brand strong{font-size:11px}.search{width:48vw}.footer{flex-direction:column}}
+</style>
 </head>
 <body>
-
-    <h1>Jamarcus Stuart</h1>
-    <p>Welcome to my personal home server.</p>
-
-    <div class="card">
-        <h2>256 Server</h2>
-        <p>My personal home server dashboard.</p>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="#" data-page-link="home">
+      <div class="brand-mark">256</div>
+      <div><strong>256 HOME LAB</strong><small>PERSONAL INFRASTRUCTURE</small></div>
+    </a>
+    <div class="quick-stats">
+      <div class="quick"><span class="dot"></span>NETWORK <b>PRIVATE</b></div>
+      <div class="quick">SERVERS <b>2</b></div>
+      <div class="quick">SERVICES <b>7</b></div>
+      <div class="quick">LOCATION <b>HOME</b></div>
     </div>
+    <label class="search"><input id="search" type="search" placeholder="Search services..." aria-label="Search services"><span>⌕</span></label>
+  </header>
 
-    <div class="card">
-        <h2>Nextcloud</h2>
-        <a href="#">Open Nextcloud</a>
-    </div>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav active" data-page="home"><span class="ico">⌂</span>Overview</button>
+      <button class="nav" data-page="diagnostics"><span class="ico">⌁</span>Diagnostics</button>
+      <button class="nav" data-page="services"><span class="ico">▦</span>Services</button>
+      <button class="nav" data-page="storage"><span class="ico">▤</span>Storage</button>
+      <div class="sidebar-foot">256 HOME LAB<br>Private network dashboard</div>
+    </aside>
 
-    <div class="card">
-        <h2>Immich</h2>
-        <a href="#">Open Immich</a>
-    </div>
+    <main>
+      <section class="page active" id="page-home">
+        <div class="hero">
+          <div><div class="eyebrow">YOUR PRIVATE NETWORK</div><h1>Welcome back.</h1><div class="subtitle">Everything running behind the scenes, in one place.</div></div>
+          <div class="hero-right"><strong id="clock">--:--:--</strong><span id="today">LOCAL SYSTEM TIME</span></div>
+        </div>
 
-    <div class="card">
-        <h2>Navidrome</h2>
-        <a href="#">Open Navidrome</a>
-    </div>
+        <div class="section-title"><h2>System overview</h2><span>Live metrics — connection pending</span></div>
+        <div class="grid system-grid">
+          <article class="card metric-card"><div class="card-head">CPU utilization <span class="tag">256Server</span></div><div class="metric-value">— <em>% used</em></div><div class="metric-note">Waiting for diagnostics agent</div><svg class="spark" viewBox="0 0 220 48" preserveAspectRatio="none"><path d="M0 42 C20 40 24 10 42 17 S68 44 90 30 S116 34 135 20 S170 41 190 18 S207 23 220 8"/></svg></article>
+          <article class="card metric-card"><div class="card-head">Memory usage <span class="tag">256StorageServer</span></div><div class="metric-value">— <em>GB used</em></div><div class="metric-note">Waiting for diagnostics agent</div><svg class="spark" viewBox="0 0 220 48" preserveAspectRatio="none"><path d="M0 38 C25 37 25 25 48 29 S70 12 91 22 S122 39 143 27 S172 16 190 22 S207 15 220 9"/></svg></article>
+          <article class="card metric-card"><div class="card-head">Network traffic <span class="tag">LAN</span></div><div class="metric-value">— <em>Mbps</em></div><div class="metric-note">Waiting for network metrics</div><svg class="spark" viewBox="0 0 220 48" preserveAspectRatio="none"><path d="M0 40 C17 40 23 5 40 12 S62 40 83 34 S102 7 124 18 S146 42 164 29 S195 5 220 11"/></svg></article>
+        </div>
 
+        <div class="section-title"><h2>Servers</h2><span>Local network nodes</span></div>
+        <div class="grid server-grid">
+          <article class="card server-card"><div class="server-info"><div class="server-icon">▣</div><div><div class="server-name">256Server</div><div class="server-ip">10.0.0.148 · Core services</div></div></div><span class="status">Awaiting check</span></article>
+          <article class="card server-card"><div class="server-info"><div class="server-icon">▤</div><div><div class="server-name">256StorageServer</div><div class="server-ip">10.0.0.245 · Media & photos</div></div></div><span class="status">Awaiting check</span></article>
+        </div>
+
+        <div class="section-title"><h2>Service activity</h2><span>Choose a service to open it</span></div>
+        <div class="grid service-grid" id="home-services">
+          <a class="card service-card" href="https://pihole.lan:8444"><div class="service-icon">◉</div><div class="service-copy"><div class="service-name">Pi-hole</div><div class="service-desc">DNS filtering · 256Server</div></div><span class="service-state">Open</span><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://nextcloud.lan:8444"><div class="service-icon">☁</div><div class="service-copy"><div class="service-name">Nextcloud</div><div class="service-desc">Files and collaboration · 256Server</div></div><span class="service-state">Open</span><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://immich.lan:8444"><div class="service-icon">▧</div><div class="service-copy"><div class="service-name">Immich</div><div class="service-desc">Photo and video library · 256StorageServer</div></div><span class="service-state">Open</span><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://music.lan:8444"><div class="service-icon">♫</div><div class="service-copy"><div class="service-name">Navidrome</div><div class="service-desc">Personal music streaming · 256StorageServer</div></div><span class="service-state">Open</span><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://plex.lan:8444"><div class="service-icon">▶</div><div class="service-copy"><div class="service-name">Plex</div><div class="service-desc">Movies and TV · 256StorageServer</div></div><span class="service-state">Open</span><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://wireguard.lan:8444"><div class="service-icon">⌁</div><div class="service-copy"><div class="service-name">WireGuard</div><div class="service-desc">Remote network access · 256Server</div></div><span class="service-state">Open</span><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://dashboard.lan:8444"><div class="service-icon">▦</div><div class="service-copy"><div class="service-name">Glance</div><div class="service-desc">Existing service dashboard · 256Server</div></div><span class="service-state">Open</span><span class="service-arrow">↗</span></a>
+        </div>
+        <div class="note"><b>Live data is not connected yet.</b> These panels are intentionally showing dashes instead of made-up readings. Next we'll connect the dashboard to private, read-only endpoints on your servers.</div>
+      </section>
+
+      <section class="page" id="page-diagnostics">
+        <div class="hero"><div><div class="eyebrow">HARDWARE & PERFORMANCE</div><h1>Computer diagnostics.</h1><div class="subtitle">Health and performance across your home-lab machines.</div></div></div>
+        <div class="grid server-grid">
+          <article class="card data-card"><h3>256Server</h3><p>10.0.0.148 · Ubuntu</p><div class="data-number">—</div><p>CPU utilization</p><div class="placeholder">Live agent connection not configured</div></article>
+          <article class="card data-card"><h3>256StorageServer</h3><p>10.0.0.245 · Ubuntu</p><div class="data-number">—</div><p>CPU utilization</p><div class="placeholder">Live agent connection not configured</div></article>
+        </div>
+        <div class="section-title"><h2>Hardware telemetry</h2><span>Live readings will appear here</span></div>
+        <div class="grid data-grid">
+          <article class="card data-card"><h3>CPU temperature</h3><div class="data-number">— °C</div><p>Processor sensors</p></article>
+          <article class="card data-card"><h3>Memory</h3><div class="data-number">— GB</div><p>Used / available</p></article>
+          <article class="card data-card"><h3>Uptime</h3><div class="data-number">—</div><p>Since last boot</p></article>
+          <article class="card data-card"><h3>Network download</h3><div class="data-number">— Mbps</div><p>Current receive rate</p></article>
+          <article class="card data-card"><h3>Network upload</h3><div class="data-number">— Mbps</div><p>Current transmit rate</p></article>
+          <article class="card data-card"><h3>GPU</h3><div class="data-number">—</div><p>Usage and temperature, when available</p></article>
+        </div>
+      </section>
+
+      <section class="page" id="page-services">
+        <div class="hero"><div><div class="eyebrow">APPLICATIONS</div><h1>Your services.</h1><div class="subtitle">Shortcuts to the apps running on your network.</div></div></div>
+        <div class="grid service-grid" id="all-services">
+          <a class="card service-card" href="https://pihole.lan:8444"><div class="service-icon">◉</div><div class="service-copy"><div class="service-name">Pi-hole</div><div class="service-desc">DNS filtering · 256Server</div></div><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://nextcloud.lan:8444"><div class="service-icon">☁</div><div class="service-copy"><div class="service-name">Nextcloud</div><div class="service-desc">Files and collaboration · 256Server</div></div><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://immich.lan:8444"><div class="service-icon">▧</div><div class="service-copy"><div class="service-name">Immich</div><div class="service-desc">Photo and video library · 256StorageServer</div></div><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://music.lan:8444"><div class="service-icon">♫</div><div class="service-copy"><div class="service-name">Navidrome</div><div class="service-desc">Personal music streaming · 256StorageServer</div></div><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://plex.lan:8444"><div class="service-icon">▶</div><div class="service-copy"><div class="service-name">Plex</div><div class="service-desc">Movies and TV · 256StorageServer</div></div><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://wireguard.lan:8444"><div class="service-icon">⌁</div><div class="service-copy"><div class="service-name">WireGuard</div><div class="service-desc">Remote network access · 256Server</div></div><span class="service-arrow">↗</span></a>
+          <a class="card service-card" href="https://dashboard.lan:8444"><div class="service-icon">▦</div><div class="service-copy"><div class="service-name">Glance</div><div class="service-desc">Existing service dashboard · 256Server</div></div><span class="service-arrow">↗</span></a>
+        </div>
+      </section>
+
+      <section class="page" id="page-storage">
+        <div class="hero"><div><div class="eyebrow">DISKS & CAPACITY</div><h1>Storage overview.</h1><div class="subtitle">Local disks, shared storage, and redundancy health.</div></div></div>
+        <div class="grid data-grid">
+          <article class="card data-card"><h3>256Server · System drive</h3><div class="data-number">—</div><p>Used / total capacity</p><div class="bar"><i></i></div></article>
+          <article class="card data-card"><h3>256Server · Nextcloud drive</h3><div class="data-number">—</div><p>Used / total capacity</p><div class="bar"><i></i></div></article>
+          <article class="card data-card"><h3>256StorageServer · Music</h3><div class="data-number">—</div><p>Used / total capacity</p><div class="bar"><i></i></div></article>
+          <article class="card data-card"><h3>256Storage · RAID1</h3><div class="data-number">—</div><p>Redundant array health</p><div class="placeholder">RAID status endpoint not connected</div></article>
+          <article class="card data-card"><h3>256Storage · Normal storage</h3><div class="data-number">—</div><p>Used / total capacity</p><div class="bar"><i></i></div></article>
+          <article class="card data-card"><h3>Shared NFS mount</h3><div class="data-number">—</div><p>256StorageServer mount status</p></article>
+        </div>
+      </section>
+      <footer class="footer"><span>256 HOME LAB · PRIVATE NETWORK</span><span>Dashboard UI preview · Live metrics not connected</span></footer>
+    </main>
+  </div>
+</div>
+<script>
+const navButtons=[...document.querySelectorAll('.nav')];
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+name));
+  navButtons.forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+}
+navButtons.forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+document.querySelectorAll('[data-page-link]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showPage(a.dataset.pageLink)}));
+const clock=document.getElementById('clock'), today=document.getElementById('today');
+function tick(){const d=new Date();clock.textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'});today.textContent=d.toLocaleDateString([], {weekday:'long',year:'numeric',month:'long',day:'numeric'}).toUpperCase()}
+tick();setInterval(tick,1000);
+document.getElementById('search').addEventListener('input',e=>{
+  const q=e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.service-card').forEach(card=>card.style.display=card.innerText.toLowerCase().includes(q)?'flex':'none');
+});
+</script>
 </body>
 </html>
